@@ -25,7 +25,7 @@ public class HomeServerOne {
             LightsI lightServant2 = new LightsI("Light2" , "Bedroom", lightInfo);
 
             LEDLightsI LEDServant1 = new LEDLightsI("LED1" , "Office", LEDInfo);
-            LEDLightsI LEDServant2 = new LEDLightsI("LED1" , "Office", LEDInfo);
+            LEDLightsI LEDServant2 = new LEDLightsI("LED2" , "Office", LEDInfo);
 
             adapter.add(fridgeServant1, new Identity("fridge_1", "fridge"));
             adapter.add(fridgeServant2, new Identity("fridge_2", "fridge"));

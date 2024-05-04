@@ -10,17 +10,20 @@ def create_device_proxies(ip,socket, communicator, devices, shift = 0):
 
     device_types = {
         "fridge": 2, 
-        "lights": 2, 
+        "light": 2, 
         "led": 2
     }
 
     for device_type, count in device_types.items():
-        devices[device_type] = []
-        for i in range(1, count + 1):
+        for i in range(1 + shift, count + 1 + shift):
+            key = f"{device_type}{i}"
+        
+            if key in devices:
+                continue
             if device_type == 'led':
-                proxy = communicator.stringToProxy(f"light/{device_type}_{i+shift}:tcp -h {ip} -p {socket}")
+                proxy = communicator.stringToProxy(f"light/{device_type}_{i}:tcp -h {ip} -p {socket}")
             else:  
-                proxy = communicator.stringToProxy(f"{device_type}/{device_type}_{i+shift}:tcp -h {ip} -p {socket}")
+                proxy = communicator.stringToProxy(f"{device_type}/{device_type}_{i}:tcp -h {ip} -p {socket}")
             if device_type == "fridge":
                 casted_proxy = SmartHome.FridgePrx.checkedCast(proxy)
             elif device_type == "light":
@@ -28,7 +31,10 @@ def create_device_proxies(ip,socket, communicator, devices, shift = 0):
             elif device_type == "led":
                 casted_proxy = SmartHome.LEDLightsPrx.checkedCast(proxy)
 
-            devices[f"{device_type}{i+shift}"] = casted_proxy
+            devices[f"{key}"] = casted_proxy
+
+def handle_command(parts):
+    pass
 
 
 def main():
@@ -44,41 +50,30 @@ def main():
         create_device_proxies(server1, socket1, communicator, devices)
         create_device_proxies(server2, socket2, communicator, devices, 2)
 
+        # print(devices)
 
-        # #setup for server#1
-       
-        # fridge_proxy1 = communicator.stringToProxy(f"fridge/fridge_1:tcp -h {server1} -p 10000")
-        # lights_proxy1 = communicator.stringToProxy(f"light/light_1:tcp -h {server1} -p 10000")
-        # lights_proxy2 = communicator.stringToProxy(f"light/light_2:tcp -h {server1} -p 10000")
-        # led_lights_proxy1 = communicator.stringToProxy(f"light/led_1:tcp -h {server1} -p 10000")
+        while True:
 
-        # fridge1 = SmartHome.FridgePrx.checkedCast(fridge_proxy1)
-        # lights1 = SmartHome.LightsPrx.checkedCast(lights_proxy1)
-        # lights2 = SmartHome.LightsPrx.checkedCast(lights_proxy2)
-        # led_lights1 = SmartHome.LEDLightsPrx.checkedCast(led_lights_proxy1)
+            try:
+                line = input("Please insert command: ")
+                parts = line.split(" ")
+            
 
-        # #setup for server#2
+                if parts[0] == 'show':
+                    for name, device in devices.items():
+                        print("------------")
+                        print(f"Name:{device.getInfo().name} \nLocation:{device.getInfo().location}\nInformations:{device.getInfo().informations}")
+                        print("------------")
+                elif parts[0] == 'exit':
+                    break
+                elif parts[0] in devices:
+                    handle_command(devices[parts[0]], )
 
-        # fridge_proxy2 = communicator.stringToProxy(f"fridge/fridge_2:tcp -h {server2} -p 10000")
-        # fridge_proxy3 = communicator.stringToProxy(f"fridge/fridge_3:tcp -h {server2} -p 10000")
-        # lights_proxy3 = communicator.stringToProxy(f"light/light_3:tcp -h {server2} -p 10000")
-        # led_lights_proxy2 = communicator.stringToProxy(f"light/led_2:tcp -h {server2} -p 10000")
-        # led_lights_proxy3 = communicator.stringToProxy(f"light/led_3:tcp -h {server2} -p 10000")
-
-        # fridge2 = SmartHome.FridgePrx.checkedCast(fridge_proxy2)
-        # fridge3 = SmartHome.FridgePrx.checkedCast(fridge_proxy3)
-        # lights3 = SmartHome.LightsPrx.checkedCast(lights_proxy3)
-        # led_lights2 = SmartHome.LEDLightsPrx.checkedCast(led_lights_proxy2)
-        # led_lights3 = SmartHome.LEDLightsPrx.checkedCast(led_lights_proxy3)
+            except Exception as e:
+                    print(f"Error: {e}")
 
 
 
-        # if not fridge or not lights or not led_lights:
-        #     print("Unable to connect to object")
-        #     sys.exit(1)
-
-        devices["fridge1"].turnOn()
-        devices["fridge3"].turnOn()
 
 
 
