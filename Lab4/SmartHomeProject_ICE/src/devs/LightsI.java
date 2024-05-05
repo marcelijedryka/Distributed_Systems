@@ -17,12 +17,13 @@ public class LightsI extends DeviceI implements Lights {
     }
 
     @Override
-    public void setBrightness(int brightness, Current current) throws InvalidCommand {
+    public String setBrightness(int brightness, Current current) throws InvalidCommand {
         if(brightness < 0 || brightness > 100){
             throw new InvalidCommand();
         }
         this.brightness = brightness;
         System.out.println(name + " brightness has been changed to " + Integer.toString(brightness));
+        return "Device's brightness has been set to " + Integer.toString(this.brightness);
     }
 
     @Override
@@ -39,8 +40,9 @@ public class LightsI extends DeviceI implements Lights {
     }
 
     @Override
-    public void turnOff(Current current) {
+    public String turnOff(Current current) {
         super.turnOff(current);
         this.brightness = 0;
+        return "";
     }
 }

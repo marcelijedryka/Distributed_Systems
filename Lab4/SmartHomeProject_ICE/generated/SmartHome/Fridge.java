@@ -17,10 +17,10 @@ package SmartHome;
 
 public interface Fridge extends Device
 {
-    void setTemperature(int temperature, com.zeroc.Ice.Current current)
+    String setTemperature(int temperature, com.zeroc.Ice.Current current)
         throws InvalidCommand;
 
-    int getTemperature(com.zeroc.Ice.Current current);
+    String getTemperature(com.zeroc.Ice.Current current);
 
     /** @hidden */
     static final String[] _iceIds =
@@ -63,8 +63,11 @@ public interface Fridge extends Device
         int iceP_temperature;
         iceP_temperature = istr.readInt();
         inS.endReadParams();
-        obj.setTemperature(iceP_temperature, current);
-        return inS.setResult(inS.writeEmptyParams());
+        String ret = obj.setTemperature(iceP_temperature, current);
+        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
+        ostr.writeString(ret);
+        inS.endWriteParams(ostr);
+        return inS.setResult(ostr);
     }
 
     /**
@@ -78,9 +81,9 @@ public interface Fridge extends Device
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
         inS.readEmptyParams();
-        int ret = obj.getTemperature(current);
+        String ret = obj.getTemperature(current);
         com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
-        ostr.writeInt(ret);
+        ostr.writeString(ret);
         inS.endWriteParams(ostr);
         return inS.setResult(ostr);
     }

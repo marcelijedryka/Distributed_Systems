@@ -11,19 +11,19 @@ module SmartHome{
     };
 
     interface Device{
-        void turnOn();
-        void turnOff();
+        string turnOn();
+        string turnOff();
         string getState();
         DeviceInfo getInfo();
     };
 
     interface Fridge extends Device{
-        void setTemperature(int temperature) throws InvalidCommand;
-        int getTemperature();
+        string setTemperature(int temperature) throws InvalidCommand;
+        string getTemperature();
     };
 
     interface Lights extends Device{
-        void setBrightness(int brightness) throws InvalidCommand;
+        string setBrightness(int brightness) throws InvalidCommand;
         string getBrightness();
     };
 
@@ -38,7 +38,7 @@ module SmartHome{
     };
 
     interface LEDLights extends Lights{
-        void setColor(ColorPalette colour);
+        string setColor(ColorPalette colour);
         ColorPalette getColor();
     };
 

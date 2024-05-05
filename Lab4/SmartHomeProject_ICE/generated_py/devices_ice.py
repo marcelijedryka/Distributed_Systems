@@ -246,8 +246,8 @@ if 'DevicePrx' not in _M_SmartHome.__dict__:
     _M_SmartHome._t_DeviceDisp = IcePy.defineClass('::SmartHome::Device', Device, (), None, ())
     Device._ice_type = _M_SmartHome._t_DeviceDisp
 
-    Device._op_turnOn = IcePy.Operation('turnOn', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (), (), None, ())
-    Device._op_turnOff = IcePy.Operation('turnOff', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (), (), None, ())
+    Device._op_turnOn = IcePy.Operation('turnOn', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (), (), ((), IcePy._t_string, False, 0), ())
+    Device._op_turnOff = IcePy.Operation('turnOff', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (), (), ((), IcePy._t_string, False, 0), ())
     Device._op_getState = IcePy.Operation('getState', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (), (), ((), IcePy._t_string, False, 0), ())
     Device._op_getInfo = IcePy.Operation('getInfo', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (), (), ((), _M_SmartHome._t_DeviceInfo, False, 0), ())
 
@@ -327,8 +327,8 @@ if 'FridgePrx' not in _M_SmartHome.__dict__:
     _M_SmartHome._t_FridgeDisp = IcePy.defineClass('::SmartHome::Fridge', Fridge, (), None, (_M_SmartHome._t_DeviceDisp,))
     Fridge._ice_type = _M_SmartHome._t_FridgeDisp
 
-    Fridge._op_setTemperature = IcePy.Operation('setTemperature', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), IcePy._t_int, False, 0),), (), None, (_M_SmartHome._t_InvalidCommand,))
-    Fridge._op_getTemperature = IcePy.Operation('getTemperature', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (), (), ((), IcePy._t_int, False, 0), ())
+    Fridge._op_setTemperature = IcePy.Operation('setTemperature', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), IcePy._t_int, False, 0),), (), ((), IcePy._t_string, False, 0), (_M_SmartHome._t_InvalidCommand,))
+    Fridge._op_getTemperature = IcePy.Operation('getTemperature', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (), (), ((), IcePy._t_string, False, 0), ())
 
     _M_SmartHome.Fridge = Fridge
     del Fridge
@@ -406,7 +406,7 @@ if 'LightsPrx' not in _M_SmartHome.__dict__:
     _M_SmartHome._t_LightsDisp = IcePy.defineClass('::SmartHome::Lights', Lights, (), None, (_M_SmartHome._t_DeviceDisp,))
     Lights._ice_type = _M_SmartHome._t_LightsDisp
 
-    Lights._op_setBrightness = IcePy.Operation('setBrightness', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), IcePy._t_int, False, 0),), (), None, (_M_SmartHome._t_InvalidCommand,))
+    Lights._op_setBrightness = IcePy.Operation('setBrightness', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), IcePy._t_int, False, 0),), (), ((), IcePy._t_string, False, 0), (_M_SmartHome._t_InvalidCommand,))
     Lights._op_getBrightness = IcePy.Operation('getBrightness', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (), (), ((), IcePy._t_string, False, 0), ())
 
     _M_SmartHome.Lights = Lights
@@ -512,7 +512,7 @@ if 'LEDLightsPrx' not in _M_SmartHome.__dict__:
     _M_SmartHome._t_LEDLightsDisp = IcePy.defineClass('::SmartHome::LEDLights', LEDLights, (), None, (_M_SmartHome._t_LightsDisp,))
     LEDLights._ice_type = _M_SmartHome._t_LEDLightsDisp
 
-    LEDLights._op_setColor = IcePy.Operation('setColor', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), _M_SmartHome._t_ColorPalette, False, 0),), (), None, ())
+    LEDLights._op_setColor = IcePy.Operation('setColor', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), _M_SmartHome._t_ColorPalette, False, 0),), (), ((), IcePy._t_string, False, 0), ())
     LEDLights._op_getColor = IcePy.Operation('getColor', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (), (), ((), _M_SmartHome._t_ColorPalette, False, 0), ())
 
     _M_SmartHome.LEDLights = LEDLights

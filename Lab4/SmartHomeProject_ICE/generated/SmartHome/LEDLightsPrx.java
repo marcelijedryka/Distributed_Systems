@@ -17,22 +17,22 @@ package SmartHome;
 
 public interface LEDLightsPrx extends LightsPrx
 {
-    default void setColor(ColorPalette colour)
+    default String setColor(ColorPalette colour)
     {
-        setColor(colour, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+        return setColor(colour, com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default void setColor(ColorPalette colour, java.util.Map<String, String> context)
+    default String setColor(ColorPalette colour, java.util.Map<String, String> context)
     {
-        _iceI_setColorAsync(colour, context, true).waitForResponse();
+        return _iceI_setColorAsync(colour, context, true).waitForResponse();
     }
 
-    default java.util.concurrent.CompletableFuture<Void> setColorAsync(ColorPalette colour)
+    default java.util.concurrent.CompletableFuture<java.lang.String> setColorAsync(ColorPalette colour)
     {
         return _iceI_setColorAsync(colour, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<Void> setColorAsync(ColorPalette colour, java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<java.lang.String> setColorAsync(ColorPalette colour, java.util.Map<String, String> context)
     {
         return _iceI_setColorAsync(colour, context, false);
     }
@@ -44,12 +44,16 @@ public interface LEDLightsPrx extends LightsPrx
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setColorAsync(ColorPalette iceP_colour, java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<java.lang.String> _iceI_setColorAsync(ColorPalette iceP_colour, java.util.Map<String, String> context, boolean sync)
     {
-        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setColor", null, sync, null);
-        f.invoke(false, context, null, ostr -> {
+        com.zeroc.IceInternal.OutgoingAsync<java.lang.String> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setColor", null, sync, null);
+        f.invoke(true, context, null, ostr -> {
                      ColorPalette.ice_write(ostr, iceP_colour);
-                 }, null);
+                 }, istr -> {
+                     String ret;
+                     ret = istr.readString();
+                     return ret;
+                 });
         return f;
     }
 

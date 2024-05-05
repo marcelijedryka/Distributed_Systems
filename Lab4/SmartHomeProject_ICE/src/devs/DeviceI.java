@@ -13,19 +13,23 @@ public class DeviceI implements Device{
     }
 
     @Override
-    public void turnOn(Current current){
+    public String turnOn(Current current){
         if(!isOn){
             isOn = true;
             System.out.println(deviceInfo.name + " has been turned on");
+            return "Device has been turned on";
         }
+        return "Device is already on";
     }
 
     @Override
-    public void turnOff(Current current){
+    public String turnOff(Current current){
         if(isOn){
             isOn = false;
             System.out.println(deviceInfo.name + " has been turned off");
+            return "Device has been turned off";
         }
+        return "Device is already off";
     }
 
     @Override

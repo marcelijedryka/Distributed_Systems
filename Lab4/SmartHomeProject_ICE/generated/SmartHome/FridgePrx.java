@@ -17,18 +17,18 @@ package SmartHome;
 
 public interface FridgePrx extends DevicePrx
 {
-    default void setTemperature(int temperature)
+    default String setTemperature(int temperature)
         throws InvalidCommand
     {
-        setTemperature(temperature, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+        return setTemperature(temperature, com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default void setTemperature(int temperature, java.util.Map<String, String> context)
+    default String setTemperature(int temperature, java.util.Map<String, String> context)
         throws InvalidCommand
     {
         try
         {
-            _iceI_setTemperatureAsync(temperature, context, true).waitForResponseOrUserEx();
+            return _iceI_setTemperatureAsync(temperature, context, true).waitForResponseOrUserEx();
         }
         catch(InvalidCommand ex)
         {
@@ -40,12 +40,12 @@ public interface FridgePrx extends DevicePrx
         }
     }
 
-    default java.util.concurrent.CompletableFuture<Void> setTemperatureAsync(int temperature)
+    default java.util.concurrent.CompletableFuture<java.lang.String> setTemperatureAsync(int temperature)
     {
         return _iceI_setTemperatureAsync(temperature, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<Void> setTemperatureAsync(int temperature, java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<java.lang.String> setTemperatureAsync(int temperature, java.util.Map<String, String> context)
     {
         return _iceI_setTemperatureAsync(temperature, context, false);
     }
@@ -57,12 +57,16 @@ public interface FridgePrx extends DevicePrx
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setTemperatureAsync(int iceP_temperature, java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<java.lang.String> _iceI_setTemperatureAsync(int iceP_temperature, java.util.Map<String, String> context, boolean sync)
     {
-        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setTemperature", null, sync, _iceE_setTemperature);
+        com.zeroc.IceInternal.OutgoingAsync<java.lang.String> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setTemperature", null, sync, _iceE_setTemperature);
         f.invoke(true, context, null, ostr -> {
                      ostr.writeInt(iceP_temperature);
-                 }, null);
+                 }, istr -> {
+                     String ret;
+                     ret = istr.readString();
+                     return ret;
+                 });
         return f;
     }
 
@@ -72,22 +76,22 @@ public interface FridgePrx extends DevicePrx
         InvalidCommand.class
     };
 
-    default int getTemperature()
+    default String getTemperature()
     {
         return getTemperature(com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default int getTemperature(java.util.Map<String, String> context)
+    default String getTemperature(java.util.Map<String, String> context)
     {
         return _iceI_getTemperatureAsync(context, true).waitForResponse();
     }
 
-    default java.util.concurrent.CompletableFuture<java.lang.Integer> getTemperatureAsync()
+    default java.util.concurrent.CompletableFuture<java.lang.String> getTemperatureAsync()
     {
         return _iceI_getTemperatureAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<java.lang.Integer> getTemperatureAsync(java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<java.lang.String> getTemperatureAsync(java.util.Map<String, String> context)
     {
         return _iceI_getTemperatureAsync(context, false);
     }
@@ -98,12 +102,12 @@ public interface FridgePrx extends DevicePrx
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Integer> _iceI_getTemperatureAsync(java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<java.lang.String> _iceI_getTemperatureAsync(java.util.Map<String, String> context, boolean sync)
     {
-        com.zeroc.IceInternal.OutgoingAsync<java.lang.Integer> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "getTemperature", null, sync, null);
+        com.zeroc.IceInternal.OutgoingAsync<java.lang.String> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "getTemperature", null, sync, null);
         f.invoke(true, context, null, null, istr -> {
-                     int ret;
-                     ret = istr.readInt();
+                     String ret;
+                     ret = istr.readString();
                      return ret;
                  });
         return f;

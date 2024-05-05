@@ -17,7 +17,7 @@ package SmartHome;
 
 public interface LEDLights extends Lights
 {
-    void setColor(ColorPalette colour, com.zeroc.Ice.Current current);
+    String setColor(ColorPalette colour, com.zeroc.Ice.Current current);
 
     ColorPalette getColor(com.zeroc.Ice.Current current);
 
@@ -61,8 +61,11 @@ public interface LEDLights extends Lights
         ColorPalette iceP_colour;
         iceP_colour = ColorPalette.ice_read(istr);
         inS.endReadParams();
-        obj.setColor(iceP_colour, current);
-        return inS.setResult(inS.writeEmptyParams());
+        String ret = obj.setColor(iceP_colour, current);
+        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
+        ostr.writeString(ret);
+        inS.endWriteParams(ostr);
+        return inS.setResult(ostr);
     }
 
     /**

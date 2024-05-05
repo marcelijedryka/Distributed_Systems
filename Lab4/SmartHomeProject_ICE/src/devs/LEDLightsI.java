@@ -16,9 +16,10 @@ public class LEDLightsI extends DeviceI implements LEDLights {
     }
 
     @Override
-    public void setColor(ColorPalette colour, Current current){
+    public String setColor(ColorPalette colour, Current current){
         this.colour = colour;
         System.out.println(getInfo().name + " has changed colour");
+        return "Colour has been changed";
     }
 
     @Override
@@ -27,16 +28,17 @@ public class LEDLightsI extends DeviceI implements LEDLights {
     }
 
     @Override
-    public void setBrightness(int brightness, Current current) throws InvalidCommand {
+    public String setBrightness(int brightness, Current current) throws InvalidCommand {
         if(brightness < 0 || brightness > 100){
             throw new InvalidCommand();
         }
         this.brightness = brightness;
         System.out.println(getInfo().name + " brightness has been changed to " + Integer.toString(brightness));
+        return "Device's brightness has been set to " + Integer.toString(this.brightness);
     }
 
     @Override
     public String getBrightness(Current current) {
-        return Integer.toString(brightness);
+        return "Device's brightness is " + Integer.toString(brightness);
     }
 }

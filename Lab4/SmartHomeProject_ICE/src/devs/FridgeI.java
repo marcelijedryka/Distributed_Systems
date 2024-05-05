@@ -14,16 +14,17 @@ public class FridgeI extends DeviceI implements Fridge{
     }
 
     @Override
-    public void setTemperature(int temperature, Current current) throws InvalidCommand {
+    public String setTemperature(int temperature, Current current) throws InvalidCommand {
         if(temperature < 0 || temperature > 20){
             throw new SmartHome.InvalidCommand();
         }
         this.temperature = temperature;
         System.out.println( name + " temperature has been set on device");
+        return "New temperature has been set";
     }
 
     @Override
-    public int getTemperature(Current current) {
-        return this.temperature;
+    public String getTemperature(Current current) {
+        return "Temperature in this device is set to " + Integer.toString(temperature);
     }
 }

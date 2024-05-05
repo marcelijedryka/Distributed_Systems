@@ -1,1 +1,0 @@
- devices[f"{device_type}{i+shift}"] = casted_proxy

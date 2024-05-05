@@ -17,7 +17,7 @@ package SmartHome;
 
 public interface Lights extends Device
 {
-    void setBrightness(int brightness, com.zeroc.Ice.Current current)
+    String setBrightness(int brightness, com.zeroc.Ice.Current current)
         throws InvalidCommand;
 
     String getBrightness(com.zeroc.Ice.Current current);
@@ -63,8 +63,11 @@ public interface Lights extends Device
         int iceP_brightness;
         iceP_brightness = istr.readInt();
         inS.endReadParams();
-        obj.setBrightness(iceP_brightness, current);
-        return inS.setResult(inS.writeEmptyParams());
+        String ret = obj.setBrightness(iceP_brightness, current);
+        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
+        ostr.writeString(ret);
+        inS.endWriteParams(ostr);
+        return inS.setResult(ostr);
     }
 
     /**

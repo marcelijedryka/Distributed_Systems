@@ -17,18 +17,18 @@ package SmartHome;
 
 public interface LightsPrx extends DevicePrx
 {
-    default void setBrightness(int brightness)
+    default String setBrightness(int brightness)
         throws InvalidCommand
     {
-        setBrightness(brightness, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+        return setBrightness(brightness, com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default void setBrightness(int brightness, java.util.Map<String, String> context)
+    default String setBrightness(int brightness, java.util.Map<String, String> context)
         throws InvalidCommand
     {
         try
         {
-            _iceI_setBrightnessAsync(brightness, context, true).waitForResponseOrUserEx();
+            return _iceI_setBrightnessAsync(brightness, context, true).waitForResponseOrUserEx();
         }
         catch(InvalidCommand ex)
         {
@@ -40,12 +40,12 @@ public interface LightsPrx extends DevicePrx
         }
     }
 
-    default java.util.concurrent.CompletableFuture<Void> setBrightnessAsync(int brightness)
+    default java.util.concurrent.CompletableFuture<java.lang.String> setBrightnessAsync(int brightness)
     {
         return _iceI_setBrightnessAsync(brightness, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<Void> setBrightnessAsync(int brightness, java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<java.lang.String> setBrightnessAsync(int brightness, java.util.Map<String, String> context)
     {
         return _iceI_setBrightnessAsync(brightness, context, false);
     }
@@ -57,12 +57,16 @@ public interface LightsPrx extends DevicePrx
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setBrightnessAsync(int iceP_brightness, java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<java.lang.String> _iceI_setBrightnessAsync(int iceP_brightness, java.util.Map<String, String> context, boolean sync)
     {
-        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setBrightness", null, sync, _iceE_setBrightness);
+        com.zeroc.IceInternal.OutgoingAsync<java.lang.String> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setBrightness", null, sync, _iceE_setBrightness);
         f.invoke(true, context, null, ostr -> {
                      ostr.writeInt(iceP_brightness);
-                 }, null);
+                 }, istr -> {
+                     String ret;
+                     ret = istr.readString();
+                     return ret;
+                 });
         return f;
     }
 

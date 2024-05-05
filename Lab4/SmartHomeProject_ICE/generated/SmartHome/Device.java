@@ -17,9 +17,9 @@ package SmartHome;
 
 public interface Device extends com.zeroc.Ice.Object
 {
-    void turnOn(com.zeroc.Ice.Current current);
+    String turnOn(com.zeroc.Ice.Current current);
 
-    void turnOff(com.zeroc.Ice.Current current);
+    String turnOff(com.zeroc.Ice.Current current);
 
     String getState(com.zeroc.Ice.Current current);
 
@@ -60,8 +60,11 @@ public interface Device extends com.zeroc.Ice.Object
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
         inS.readEmptyParams();
-        obj.turnOn(current);
-        return inS.setResult(inS.writeEmptyParams());
+        String ret = obj.turnOn(current);
+        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
+        ostr.writeString(ret);
+        inS.endWriteParams(ostr);
+        return inS.setResult(ostr);
     }
 
     /**
@@ -75,8 +78,11 @@ public interface Device extends com.zeroc.Ice.Object
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
         inS.readEmptyParams();
-        obj.turnOff(current);
-        return inS.setResult(inS.writeEmptyParams());
+        String ret = obj.turnOff(current);
+        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
+        ostr.writeString(ret);
+        inS.endWriteParams(ostr);
+        return inS.setResult(ostr);
     }
 
     /**
