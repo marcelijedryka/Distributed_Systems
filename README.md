@@ -16,3 +16,11 @@ Smart Home application which enables to control your home devices remotely. Devi
 
 ## Dynamic Library with GRPC
 Middleware application created with grpc architecture which process requests dynamically. Client can push new book to the server, request book list or collection count. Server was written in Java when client was written with Python.
+
+## Hospital Exchange with RabbitMQ
+
+Symulation of hospital communication between doctors and technicans. Doctor sends request to technican, which can provide with certain type of an exam and then sends results back to the doctor. Communication is supervised by admin, who have access to all messages in the exchange. Solution has been implemented in Java with the usage of RabbitMQ.
+
+## Remote node management in Zookeeper's environment
+
+Application that connects its' user to the Zookeeper's server and allowes to create, delete and operate on server's nodes.
