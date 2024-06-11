@@ -1,0 +1,25 @@
+<configuration>
+    <!-- Console appender definition -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- File appender definition -->
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>zookeeper.log</file>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Set the default log level for all loggers -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
+    </root>
+
+    <!-- Reduce the log level for ZooKeeper client to suppress ping logs -->
+    <logger name="org.apache.zookeeper.ClientCnxn" level="ERROR" />
+</configuration>
